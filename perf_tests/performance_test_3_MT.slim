@@ -1,0 +1,30 @@
+initialize() {
+	initializeTrait("trait1", "a");
+	initializeTrait("trait2", "a");
+	initializeMutationType("m2", NAN);
+	initializeGenomicElementType("g2", m2, 1.0);
+	initializeGenomicElement(g2, 0, 99999);
+	initializeRecombinationRate(1e-8);
+	initializeMutationRate(1e-8);
+	
+	defineConstant("QTL_mu", c(0, 0));
+	defineConstant("QTL_cov", 0.25);
+	defineConstant("QTL_sigma", matrix(c(1,QTL_cov,QTL_cov,1), nrow=2));
+	defineConstant("OPT", c(20, -20));
+}
+1 late() {
+	sim.addSubpop("p1", 500);
+}
+mutation(m2) {
+	// draw mutational effects for the new m2 mutation
+	mut.setEffectSizeForTrait(NULL, rmvnorm(1, QTL_mu, QTL_sigma));
+	return T;
+}
+late() {
+	sim.demandPhenotype(NULL, c("trait1", "trait2"));
+	inds = sim.subpopulations.individuals;
+	effects0 = 1.0 + dnorm(OPT[0] - inds.trait1, 0.0, 20.0) * 10.0;
+	effects1 = 1.0 + dnorm(OPT[1] - inds.trait2, 0.0, 20.0) * 10.0;
+	inds.fitnessScaling = effects0 * effects1;
+}
+25000 late() {}

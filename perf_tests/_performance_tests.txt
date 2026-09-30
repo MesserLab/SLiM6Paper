@@ -1,0 +1,83 @@
+#
+# RUNNER SCRIPT FOR ALL PERFORMANCE COMPARISONS
+#
+# this should be run with zsh (i.e., `zsh _performance_tests.txt`)
+#
+# this script expects production builds of SLiM 5.2 and SLiM 6.0 to be
+# in the same directory, named slim52 and slim6.
+#
+# the runtimes go to Terminal and get copy-pasted into plot_results.R
+
+
+cd "/path/to/repo/perf_tests/"
+
+
+echo "starting test 1A"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_1A.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_1A.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 1A"
+echo
+
+
+echo "starting test 1B"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_1B.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_1B.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 1B"
+echo
+
+
+echo "starting test 1C"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_1C.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_1C.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 1C"
+echo
+
+
+echo "starting test 1D"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_1D.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_1D.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 1D"
+echo
+
+
+echo "starting test 2"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_2.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_2_MT.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 2"
+echo
+
+
+echo "starting test 3"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_3.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_3_MT.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 3"
+echo
+
+
+echo "starting test 4"
+for x in $(seq 100); do ./slim52 -s $x -time performance_test_4.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_4_MT.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 4"
+echo
+
+
+echo "starting test 5"
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_5.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_5_MT.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 5"
+echo
+
+
+echo "starting test 6"
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_6.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_6_MT.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 6"
+echo
+
+
+echo "starting test 7"
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_7.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+for x in $(seq 100); do ./slim6 -s $x -time performance_test_7_MT.slim; done |& grep 'CPU time used:' | grep -o '[0-9]*\.[0-9]*' | paste -s -d ',' -
+echo "ending test 7"
+echo
+

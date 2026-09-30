@@ -1,0 +1,20 @@
+initialize() {
+	initializeTrait("trait", "a");
+	initializeMutationRate(1e-7);
+	initializeMutationType("m1", 0.5, "n", 0.0, 0.1);
+	initializeGenomicElementType("g1", m1, 1.0);
+	initializeGenomicElement(g1, 0, 99999);
+	initializeRecombinationRate(1e-8);
+}
+1 early() {
+	sim.addSubpop("p1", 500);
+}
+1: late() {
+	sim.demandPhenotype(NULL, "trait");
+	
+	inds = sim.subpopulations.individuals;
+	scale = dnorm(5.0, 5.0, 2.0);
+	gaussian = dnorm(inds.trait, 5.0, 2.0);
+	inds.fitnessScaling = 1.0 + gaussian / scale;
+}
+70000 late() {}

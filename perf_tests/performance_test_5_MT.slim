@@ -1,0 +1,15 @@
+initialize() {
+	initializeMutationType("m2", NAN, "f", 0.0);
+	initializeMutationType("m3", NAN, "g", -0.03, 0.2);
+	initializeMutationType("m4", NAN, "e", 0.1);
+	
+	initializeGenomicElementType("g1", c(m2,m3,m4), c(2,8,0.01));
+	initializeGenomicElement(g1, 0, 999999);
+	
+	initializeRecombinationRate(1e-8);
+	initializeMutationRate(1e-7);
+}
+1 early() {
+	sim.addSubpop("p1", 500);
+}
+200000 early() { }

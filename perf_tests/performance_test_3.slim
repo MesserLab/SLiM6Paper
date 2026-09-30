@@ -1,0 +1,36 @@
+initialize() {
+	initializeMutationType("m2", 0.5, "f", 0.0);
+	m2.convertToSubstitution = F;
+	
+	initializeGenomicElementType("g2", m2, 1.0);
+	initializeGenomicElement(g2, 0, 99999);
+	initializeRecombinationRate(1e-8);
+	initializeMutationRate(1e-8);
+	
+	defineConstant("QTL_mu", c(0, 0));
+	defineConstant("QTL_cov", 0.25);
+	defineConstant("QTL_sigma", matrix(c(1,QTL_cov,QTL_cov,1), nrow=2));
+	defineConstant("OPT", c(20, -20));
+}
+1 late() {
+	sim.addSubpop("p1", 500);
+}
+mutation(m2) {
+	// draw mutational effects for the new m2 mutation
+	effects = rmvnorm(1, QTL_mu, QTL_sigma);
+	mut.setValue("e0", effects[0]);
+	mut.setValue("e1", effects[1]);
+	return T;
+}
+late() {
+	for (ind in sim.subpopulations.individuals)
+	{
+		muts = ind.haplosomes.mutationsOfType(m2);
+		phenotype0 = size(muts) ? sum(muts.getValue("e0")) else 0.0;
+		phenotype1 = size(muts) ? sum(muts.getValue("e1")) else 0.0;
+		effect0 = 1.0 + dnorm(OPT[0] - phenotype0, 0.0, 20.0) * 10.0;
+		effect1 = 1.0 + dnorm(OPT[1] - phenotype1, 0.0, 20.0) * 10.0;
+		ind.fitnessScaling = effect0 * effect1;
+	}
+}
+25000 late() {}

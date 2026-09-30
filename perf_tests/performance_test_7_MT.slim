@@ -1,0 +1,28 @@
+initialize() {
+	defineConstant("M_RATE", 1e-2);        // Mutation rate
+	defineConstant("M_VAR", 1e-2);         // Variance of mutational steps
+	defineConstant("M_SD", sqrt(M_VAR));
+	defineConstant("S_VAR", 100.0);        // Width of the fitness function 
+	defineConstant("S_SD", sqrt(S_VAR));
+	defineConstant("E_VAR", 1.0);          // Environmental variance in phenotype 
+	defineConstant("E_SD", sqrt(E_VAR));
+	defineConstant("N", 2000);             // Population size
+	defineConstant("N_LOCI", 16);          // Number of unlinked loci
+	
+	initializeTrait("trait1", "additive", individualOffsetSD=E_SD);
+	initializeMutationType("m1", NAN, "n", 0.0, M_SD);
+	m1.mutationStackPolicy = "a";
+	initializeGenomicElementType("g1", m1, 1.0);
+	initializeGenomicElement(g1, 0, N_LOCI - 1);
+	initializeMutationRate(M_RATE);
+	initializeRecombinationRate(0.5);
+}
+1 late() {
+	sim.addSubpop("p1", N);
+}
+1:5000 late() {
+	sim.demandPhenotype(NULL, NULL);
+	
+	phenotypes = p1.individuals.trait1;
+	p1.individuals.fitnessScaling = dnorm(phenotypes, 0.0, S_SD);
+}

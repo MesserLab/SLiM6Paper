@@ -1,0 +1,20 @@
+initialize() {
+	initializeSLiMModelType("nonWF");
+	defineConstant("K", 250);	// carrying capacity
+	initializeMutationType("m1", 0.5, "n", 0.0, 0.001);
+	m1.convertToSubstitution = F;
+	initializeGenomicElementType("g1", m1, 1.0);
+	initializeGenomicElement(g1, 0, 1e8 - 1);
+	initializeMutationRate(1e-7);
+	initializeRecombinationRate(1e-8);
+}
+reproduction() {
+	subpop.addCrossed(individual, subpop.sampleIndividuals(1));
+}
+1 early() {
+	sim.addSubpop("p1", K);
+}
+early() {
+	p1.fitnessScaling = K / p1.individualCount;
+}
+1000 late() { }
