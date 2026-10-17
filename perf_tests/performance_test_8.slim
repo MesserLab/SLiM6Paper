@@ -1,0 +1,27 @@
+initialize() {
+	defineConstant("N", 10000);
+	initializeSLiMOptions(dimensionality="xy");
+	initializeMutationRate(1e-7);
+	initializeMutationType("m1", 0.5, "f", 0.0);
+	initializeGenomicElementType("g1", m1, 1.0);
+	initializeGenomicElement(g1, 0, 99999);
+	initializeRecombinationRate(1e-8);
+	
+	initializeInteractionType(1, "xy", reciprocal=T, maxDistance=0.3);  // competition
+	i1.setInteractionFunction("n", 3.0, 0.1);
+}
+1 late() {
+	sim.addSubpop("p1", N);
+	p1.individuals.setSpatialPosition(p1.pointUniform(N));
+}
+1: late() {
+	// Dispersal and boundary enforcement
+	p1.deviatePositions(NULL, "reprising", INF, "n", 0.02);
+	
+	// spatial competition provides density-dependent selection
+	i1.evaluate(p1);
+	inds = p1.individuals;
+	competition = i1.localPopulationDensity(inds);
+	inds.fitnessScaling = 1.0 / competition;
+}
+170 late() { }

@@ -9,7 +9,7 @@ This repository is associated with the publication:
 
 It contains scripts and data used in that publication:
 
-**perf_tests** : A folder containing the SLiM scripts (`*.slim`) used in the manuscript, and a runner script (`_performance_tests.txt`) to do all the production runs.  For figure 1 (SLiM scripts with a filename ending in `1A`, `1B`, `1C`, `1D`), the scripts run under both SLiM 5.2 and SLiM 6.0.  For figures 2, 3, and 4 the scripts that end in `MT` are run in SLiM 6 (`MT` is short for "multitrait"), and those that do not end in `MT` are run in SLiM 5.2.  For figures 5, 6, and 7 the scripts are all run in SLiM 6; the `MT` ending here just indicates the script that takes advantage of new SLiM 6 functionality, versus the script that does not.
+**perf_tests** : A folder containing the SLiM scripts (`*.slim`) used in the manuscript, and a runner script (`_performance_tests.txt`) to do all the production runs.  For figure 1 (SLiM scripts with a filename ending in `1A`, `1B`, `1C`, `1D`), the scripts run under both SLiM 5.2 and SLiM 6.0.  For figures 2, 3, and 4 the scripts that end in `MT` are run in SLiM 6 (`MT` is short for "multitrait"), and those that do not end in `MT` are run in SLiM 5.2.  For figures 5, 6, and 7 the scripts are all run in SLiM 6; the `MT` ending here just indicates the script that takes advantage of new SLiM 6 functionality, versus the script that does not.  For figure 8 the same script runs under both SLiM 5.1 (before the SIMD optimization was done) and SLiM 6.0 (after it was done, in SLiM 5.2).
 
 **plot_results.R** : A simple R script to generate the figures in the manuscript.
 
@@ -19,4 +19,4 @@ It contains scripts and data used in that publication:
 
 **README.md** : This README file.
 
-_-- Ben Haller, 30 September 2026_
+_-- Ben Haller, 17 October 2026_
