@@ -1,2 +1,4 @@
 # ignore executables in the perf_tests folder
 perf_tests/slim*
+
+.DS_Store
